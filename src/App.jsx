@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import PilgrimagePlanner from './pages/PilgrimagePlanner';
+import TempleChat from './components/TempleChat';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -13,6 +15,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/planner" element={<PilgrimagePlanner />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={
           <ProtectedRoute>
@@ -31,6 +34,7 @@ const App = () => {
               </Routes>
             </main>
             <Footer />
+            <TempleChat />
           </div>
         } />
       </Routes>

@@ -3,38 +3,62 @@ import { Link } from 'react-router-dom';
 const TempleCard = ({ temple }) => {
   return (
     <Link to={`/temple/${temple.id}`} className="group block">
-      <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-orange-100 hover:-translate-y-1">
-        <div className="h-52 overflow-hidden relative">
+      <div className="relative rounded-2xl overflow-hidden shadow-md transition-all duration-400 hover:shadow-2xl hover:-translate-y-2"
+        style={{
+          border: '1.5px solid rgba(255,160,50,0.15)',
+          background: '#fff',
+        }}>
+
+        {/* Glow border on hover */}
+        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10"
+          style={{ boxShadow: 'inset 0 0 0 2px rgba(255,140,0,0.6), 0 0 25px rgba(255,120,0,0.2)' }} />
+
+        {/* Image */}
+        <div className="relative h-56 overflow-hidden">
           {temple.image_url ? (
             <img
               src={temple.image_url}
               alt={temple.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              onError={(e) => { e.target.style.display = 'none'; }}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-6xl"
               style={{ background: 'linear-gradient(135deg, #FDE8D0, #FBBF7A)' }}>🛕</div>
           )}
-          <div className="absolute top-3 right-3">
-            <span className="bg-white/90 text-orange-700 text-xs font-semibold px-3 py-1 rounded-full shadow">
+
+          {/* Gradient overlay */}
+          <div className="absolute inset-0"
+            style={{ background: 'linear-gradient(to top, rgba(60,10,0,0.85) 0%, rgba(0,0,0,0.2) 50%, transparent 100%)' }} />
+
+          {/* Deity badge top right */}
+          <div className="absolute top-3 right-3 z-10">
+            <span className="text-xs font-semibold px-3 py-1 rounded-full"
+              style={{ background: 'rgba(255,255,255,0.92)', color: '#7B1F1F', backdropFilter: 'blur(8px)' }}>
               {temple.deity}
             </span>
           </div>
+
+          {/* Temple name on image */}
+          <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
+            <h3 className="text-white font-bold text-lg leading-tight drop-shadow-lg">
+              {temple.name}
+            </h3>
+            <div className="flex items-center gap-1 mt-1">
+              <span className="text-orange-300 text-xs">📍</span>
+              <span className="text-orange-200 text-xs font-medium">{temple.city}, {temple.state}</span>
+            </div>
+          </div>
         </div>
-        <div className="p-5">
-          <h3 className="text-lg font-bold text-stone-800 group-hover:text-orange-700 transition-colors leading-snug">
-            {temple.name}
-          </h3>
-          <div className="flex items-center gap-1 mt-1.5 text-sm text-stone-500">
-            <span>📍</span>
-            <span>{temple.city}, {temple.state}</span>
-          </div>
-          <p className="text-sm text-stone-600 mt-3 line-clamp-2 leading-relaxed">{temple.description}</p>
-          <div className="mt-4 flex items-center text-orange-600 text-sm font-medium">
-            <span>View details</span>
-            <span className="ml-1 group-hover:ml-2 transition-all">→</span>
-          </div>
+
+        {/* Bottom info bar */}
+        <div className="px-4 py-3 flex items-center justify-between"
+          style={{ background: 'linear-gradient(135deg, #fff9f5, #fff)' }}>
+          <p className="text-stone-500 text-xs leading-relaxed line-clamp-1 flex-1 mr-3">
+            {temple.description}
+          </p>
+          <span className="text-orange-600 text-xs font-semibold whitespace-nowrap flex items-center gap-1 group-hover:gap-2 transition-all">
+            Explore <span className="transition-transform group-hover:translate-x-1 inline-block">→</span>
+          </span>
         </div>
       </div>
     </Link>

@@ -127,7 +127,7 @@ const AdminDashboard = () => {
         transport_options: '', official_website: '', places_to_visit: ''
       },
       darshan_timings: t.darshan_timings?.length > 0 ? t.darshan_timings : [{ day_type: '', open_time: '', close_time: '', notes: '' }],
-      festivals: t.festivals?.length > 0 ? t.festivals : [{ name: '', festival_date: '', description: '' }]
+     festivals: t.festivals?.length > 0 ? t.festivals.map(f => ({ ...f, festival_date: f.festival_date ? f.festival_date.split('T')[0] : '' })) : [{ name: '', festival_date: '', description: '' }],
     });
     setShowForm(true);
     setActiveTab('basic');
